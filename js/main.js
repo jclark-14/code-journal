@@ -1,13 +1,29 @@
 'use strict';
-/* global data */
 const $imgUrl = document.querySelector('.img-url');
 const $img = document.querySelector('img');
-if (!$imgUrl || !$img) throw new Error('$imgUrl or $img query failed');
+const $form = document.querySelector('form');
+if (!$imgUrl || !$img || !$form)
+  throw new Error('$imgUrl, $img or !$form query failed');
+function writeJSON() {
+  const dataJSON = JSON.stringify(data);
+  localStorage.setItem('data-storage', dataJSON);
+}
 $imgUrl.addEventListener('input', (event) => {
   const $eventTarget = event.target;
-  console.log($eventTarget);
-  console.log('input event: ', event);
-  console.log('event value: ', $eventTarget.value);
   $img.setAttribute('src', $eventTarget.value);
-  console.log('src:', $img.getAttribute('src'));
+});
+$form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const $formElements = $form.elements;
+  const entry = {
+    title: $formElements.title.value,
+    'img-url': $formElements['img-url'].value,
+    notes: $formElements.notes.value,
+    entryID: data.nextEntryId,
+  };
+  data.nextEntryId++;
+  data.entries.push(entry);
+  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $form.reset();
+  writeJSON();
 });

@@ -1,16 +1,38 @@
 /* global data */
+interface FormElements extends HTMLFormControlsCollection {
+  title: HTMLInputElement;
+  'img-url': HTMLInputElement;
+  notes: HTMLTextAreaElement;
+}
 
-const $imgUrl = document.querySelector('.img-url');
+const $imgUrl = document.querySelector('.img-url') as HTMLFormElement;
 const $img = document.querySelector('img');
-if (!$imgUrl || !$img) throw new Error('$imgUrl or $img query failed');
+const $form = document.querySelector('form');
+if (!$imgUrl || !$img || !$form)
+  throw new Error('$imgUrl, $img or !$form query failed');
+
+function writeJSON(): void {
+  const dataJSON = JSON.stringify(data);
+  localStorage.setItem('data-storage', dataJSON);
+}
 
 $imgUrl.addEventListener('input', (event: Event) => {
   const $eventTarget = event.target as HTMLFormElement;
-  console.log($eventTarget);
-  console.log('input event: ', event);
-  console.log('event value: ', $eventTarget.value);
   $img.setAttribute('src', $eventTarget.value);
-  console.log('src:', $img.getAttribute('src'));
 });
 
-console.log(data);
+$form.addEventListener('submit', (event: Event) => {
+  event.preventDefault();
+  const $formElements = $form.elements as FormElements;
+  const entry = {
+    title: $formElements.title.value,
+    'img-url': $formElements['img-url'].value,
+    notes: $formElements.notes.value,
+    entryID: data.nextEntryId,
+  };
+  data.nextEntryId++;
+  data.entries.push(entry);
+  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $form.reset();
+  writeJSON();
+});
