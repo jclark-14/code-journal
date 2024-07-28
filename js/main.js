@@ -1,29 +1,20 @@
-/* global data */
-interface FormElements extends HTMLFormControlsCollection {
-  title: HTMLInputElement;
-  'img-url': HTMLInputElement;
-  notes: HTMLTextAreaElement;
-}
-
-const $imgUrl = document.querySelector('.img-url') as HTMLFormElement;
+'use strict';
+const $imgUrl = document.querySelector('.img-url');
 const $img = document.querySelector('img');
 const $form = document.querySelector('form');
 if (!$imgUrl || !$img || !$form)
   throw new Error('$imgUrl, $img or !$form query failed');
-
-function writeJSON(): void {
+function writeJSON() {
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('data-storage', dataJSON);
 }
-
-$imgUrl.addEventListener('input', (event: Event) => {
-  const $eventTarget = event.target as HTMLFormElement;
+$imgUrl.addEventListener('input', (event) => {
+  const $eventTarget = event.target;
   $img.setAttribute('src', $eventTarget.value);
 });
-
-$form.addEventListener('submit', (event: Event) => {
+$form.addEventListener('submit', (event) => {
   event.preventDefault();
-  const $formElements = $form.elements as FormElements;
+  const $formElements = $form.elements;
   const entry = {
     title: $formElements.title.value,
     'img-url': $formElements['img-url'].value,
