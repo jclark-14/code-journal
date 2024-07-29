@@ -4,6 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Code Journal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet" />
     <link rel="icon" href="images/favicon.ico" />
     <link
       rel="stylesheet"
@@ -16,16 +26,19 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <header>
-      <div class="container flex">
-        <h2 class="column-full">Code Journal</h2>
+    <header class="">
+      <div class="row container">
+        <div class="nav row column-full">
+          <h2>Code Journal</h2>
+          <a href="#" class="nav-entries">Entries</a>
+        </div>
       </div>
     </header>
     <main class="row container">
-      <h1 class="column-full">New Entry</h1>
-      <div data-view="entry-form">
+      <div data-view="entry-form" id="entry-form" class="">
+        <h1 class="column-full">New Entry</h1>
         <form class="row">
-          <div class="img-placeholder column-half">
+          <div class="img-div column-half">
             <img src="images/placeholder-image-square.jpg" />
           </div>
           <div class="column-half">
@@ -54,7 +67,13 @@
           </div>
         </form>
       </div>
-      <div data-view="entries" class="hidden"></div>
+      <div data-view="entries" id="entries" class="hidden column-full">
+        <h1>Entries</h1>
+        <div class="column-full">
+          <p class="no-entries">No entries have been recorded.</p>
+        </div>
+        <ul class=""></ul>
+      </div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>

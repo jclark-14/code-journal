@@ -1,6 +1,10 @@
 header {
   height: 53px;
+  width: 100%;
   background-color: #562b81;
+
+  /* display: flex;
+  justify-content: flex-start; */
 }
 
 h2 {
@@ -8,23 +12,56 @@ h2 {
   font-family: 'Proza Libre', sans-serif;
   font-size: 20px;
   font-weight: 400;
+  margin-right: 25px;
 }
 
 body {
+  font-family: 'Proza Libre', sans-serif;
   background-color: #f0f0f0;
 }
 
 h1 {
   font-family: 'Proza Libre', sans-serif;
   font-size: 30px;
+
+  /* margin: 0; */
+}
+
+a {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+
+  /* position: relative;
+  bottom: 3px; */
+}
+
+h2,
+a {
+  margin-top: 15px;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 24px;
+
+  /* margin: 0;
+  border: 0; */
 }
 
 img {
   width: 100%;
-  height: 90%;
+  height: 100%;
   border-radius: 4px;
   object-fit: cover;
   object-position: center;
+}
+
+.img-div {
+  height: 275px;
+  margin-bottom: 20px;
 }
 
 input,
@@ -39,7 +76,6 @@ textarea {
 }
 
 label {
-  font-family: 'Proza Libre', sans-serif;
   font-weight: 600;
 }
 
@@ -48,14 +84,43 @@ label {
   padding: 6px;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 15px;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 28px;
+  text-align: left;
+}
+
 .flex {
   display: flex;
 }
+
+/*
+.align-center {
+  align-items: center;
+} */
 
 .button-container {
   display: flex;
   border-radius: 4px;
   justify-content: flex-end;
+}
+
+p.no-entries {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  text-align: center;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 button {
@@ -70,9 +135,14 @@ button {
 }
 
 @media screen and (width >= 768px) {
-  img {
-    height: 380px;
-  }
+  /* img {
+    height: 1005;
+    width: 100%;
+  } */
+
+  /* .nav {
+    padding: 0 1.5rem;
+  } */
 
   input {
     margin-top: 15px;
@@ -84,8 +154,13 @@ button {
     padding: 8px 10px;
   }
 
-  .img-placeholder {
+  .img-div {
     margin-bottom: 30px;
+    height: 380px;
+  }
+
+  li {
+    margin-bottom: 25px;
   }
 }
 
