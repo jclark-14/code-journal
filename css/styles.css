@@ -1,5 +1,6 @@
 header {
   height: 53px;
+  width: 100%;
   background-color: #562b81;
 }
 
@@ -8,9 +9,11 @@ h2 {
   font-family: 'Proza Libre', sans-serif;
   font-size: 20px;
   font-weight: 400;
+  margin-right: 25px;
 }
 
 body {
+  font-family: 'Proza Libre', sans-serif;
   background-color: #f0f0f0;
 }
 
@@ -19,12 +22,34 @@ h1 {
   font-size: 30px;
 }
 
+a {
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+h2,
+a {
+  margin-top: 15px;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 24px;
+}
+
 img {
   width: 100%;
-  height: 90%;
+  height: 100%;
   border-radius: 4px;
   object-fit: cover;
   object-position: center;
+}
+
+.img-div {
+  height: 275px;
+  margin-bottom: 20px;
 }
 
 input,
@@ -39,7 +64,6 @@ textarea {
 }
 
 label {
-  font-family: 'Proza Libre', sans-serif;
   font-weight: 600;
 }
 
@@ -48,14 +72,54 @@ label {
   padding: 6px;
 }
 
-.flex {
+.entries-bar {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.new-button {
+  width: 80px;
+  height: 32px;
+  background-color: #562b81;
+  border-radius: 4px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  margin: auto 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 15px;
+}
+
+p {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 28px;
 }
 
 .button-container {
   display: flex;
   border-radius: 4px;
   justify-content: flex-end;
+}
+
+p.no-entries {
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  justify-content: center;
+  margin-top: 30px;
 }
 
 button {
@@ -70,10 +134,6 @@ button {
 }
 
 @media screen and (width >= 768px) {
-  img {
-    height: 380px;
-  }
-
   input {
     margin-top: 15px;
     margin-bottom: 30px;
@@ -84,8 +144,17 @@ button {
     padding: 8px 10px;
   }
 
-  .img-placeholder {
+  .img-div {
     margin-bottom: 30px;
+    height: 380px;
+  }
+
+  .no-padding-left {
+    padding-left: 0;
+  }
+
+  li {
+    margin-bottom: 25px;
   }
 }
 
