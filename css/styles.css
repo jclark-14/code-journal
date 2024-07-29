@@ -2,9 +2,6 @@ header {
   height: 53px;
   width: 100%;
   background-color: #562b81;
-
-  /* display: flex;
-  justify-content: flex-start; */
 }
 
 h2 {
@@ -23,19 +20,13 @@ body {
 h1 {
   font-family: 'Proza Libre', sans-serif;
   font-size: 30px;
-
-  /* margin: 0; */
 }
 
 a {
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
   color: white;
   font-weight: 600;
   text-decoration: none;
-
-  /* position: relative;
-  bottom: 3px; */
 }
 
 h2,
@@ -46,9 +37,6 @@ a {
 h3 {
   font-weight: 600;
   font-size: 24px;
-
-  /* margin: 0;
-  border: 0; */
 }
 
 img {
@@ -84,6 +72,28 @@ label {
   padding: 6px;
 }
 
+.entries-bar {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.new-button {
+  width: 80px;
+  height: 32px;
+  background-color: #562b81;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.new {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  margin: auto 0;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -97,17 +107,7 @@ li {
 p {
   font-family: 'Open Sans', sans-serif;
   line-height: 28px;
-  text-align: left;
 }
-
-.flex {
-  display: flex;
-}
-
-/*
-.align-center {
-  align-items: center;
-} */
 
 .button-container {
   display: flex;
@@ -117,7 +117,6 @@ p {
 
 p.no-entries {
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
   text-align: center;
   justify-content: center;
   margin-top: 30px;
@@ -135,15 +134,6 @@ button {
 }
 
 @media screen and (width >= 768px) {
-  /* img {
-    height: 1005;
-    width: 100%;
-  } */
-
-  /* .nav {
-    padding: 0 1.5rem;
-  } */
-
   input {
     margin-top: 15px;
     margin-bottom: 30px;
@@ -157,6 +147,10 @@ button {
   .img-div {
     margin-bottom: 30px;
     height: 380px;
+  }
+
+  .no-padding-left {
+    padding-left: 0;
   }
 
   li {

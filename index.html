@@ -26,8 +26,8 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <header class="">
-      <div class="row container">
+    <header>
+      <div class="container">
         <div class="nav row column-full">
           <h2>Code Journal</h2>
           <a href="#" class="nav-entries">Entries</a>
@@ -59,8 +59,11 @@
           </div>
           <div class="column-full">
             <label for="notes">Notes</label>
-            <textarea id="notes" name="notes" class="column-full" required>
-            </textarea>
+            <textarea
+              id="notes"
+              name="notes"
+              class="column-full"
+              required></textarea>
           </div>
           <div class="button-container column-full">
             <button type="submit" class="submit-button">SAVE</button>
@@ -68,7 +71,10 @@
         </form>
       </div>
       <div data-view="entries" id="entries" class="hidden column-full">
-        <h1>Entries</h1>
+        <div class="entries-bar row">
+          <h1>Entries</h1>
+          <a href="#" class="new"><div class="new-button">NEW</div></a>
+        </div>
         <div class="column-full">
           <p class="no-entries">No entries have been recorded.</p>
         </div>
