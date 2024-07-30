@@ -133,6 +133,21 @@ button {
   margin-bottom: 22px;
 }
 
+.h3-icon {
+  justify-content: space-between;
+}
+
+.pencil {
+  color: #562b81;
+
+  /* width: 24px; */
+}
+
+/*
+i {
+  width: 24px;
+} */
+
 @media screen and (width >= 768px) {
   input {
     margin-top: 15px;
@@ -153,8 +168,19 @@ button {
     padding-left: 0;
   }
 
+  .entries-bar {
+    /* width: 900px; */
+  }
+
   li {
     margin-bottom: 25px;
+
+    /* width: 900px; */
+  }
+
+  h3,
+  .pencil {
+    margin-top: 5px;
   }
 }
 
