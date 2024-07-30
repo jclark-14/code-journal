@@ -1,10 +1,4 @@
 'use strict';
-// interface Entry {
-//   title: string;
-//   'img-url': string;
-//   notes: string;
-//   entryID: number;
-// }
 const $imgUrl = document.querySelector('.img-url');
 const $img = document.querySelector('img');
 const $form = document.querySelector('form');
@@ -67,10 +61,9 @@ $form.addEventListener('submit', (event) => {
     if (!$liElements) throw new Error('$liElements query failed');
     for (let i = 0; i < $liElements.length; i++) {
       if (Number($liElements[i].dataset.entryId) === entry.entryID) {
-        $liElements[i].remove();
+        $liElements[i].replaceWith(renderEntry(entry));
       }
     }
-    renderEntry(entry);
     writeJSON();
     viewSwap(data);
     toggleNoEntries($noEntries);
@@ -81,14 +74,14 @@ $form.addEventListener('submit', (event) => {
 function renderEntry(entry) {
   if (!$ul) throw new Error('$ul not found');
   const $li = $ul.appendChild(document.createElement('li'));
-  $li.setAttribute('class', 'row');
+  $li.setAttribute('class', 'row column-full');
   $li.setAttribute('data-entry-id', entry.entryID.toString());
   const $imgDiv = $li.appendChild(document.createElement('div'));
-  $imgDiv.setAttribute('class', 'img-div column-half no-padding-left');
+  $imgDiv.setAttribute('class', 'img-div column-half');
   const $img = $imgDiv.appendChild(document.createElement('img'));
   $img.setAttribute('src', entry['img-url']);
   const $textDiv = $li.appendChild(document.createElement('div'));
-  $textDiv.setAttribute('class', 'column-half');
+  $textDiv.setAttribute('class', 'column-half text-div');
   const $h3PencilDiv = $textDiv.appendChild(document.createElement('div'));
   $h3PencilDiv.setAttribute('class', 'row h3-icon');
   const $h3 = $h3PencilDiv.appendChild(document.createElement('h3'));
@@ -139,36 +132,27 @@ $new.addEventListener('click', () => {
 });
 $ul.addEventListener('click', (event) => {
   const $eventTarget = event.target;
-  const $targetId = $eventTarget.closest('LI')?.getAttribute('data-entry-id');
-  const $targetIdNumber = Number($targetId);
-  const $entryJSON = localStorage.getItem('data-storage');
-  const $returnStorage = JSON.parse($entryJSON);
-  // console.log($returnStorage);
-  // console.log('typeof', typeof $targetId);
-  // console.log('typeof $targNum', typeof $targetIdNumber, $targetIdNumber);
-  for (let i = 0; i < $returnStorage.entries.length; i++) {
-    const $entryId = $returnStorage.entries[i].entryID;
-    if ($entryId === $targetIdNumber) {
-      // console.log('yes', $returnStorage.entries[i]);
-      data.editing = $returnStorage.entries[i];
-      // console.log(data.editing);
-      // console.log('data', data);
-      // console.log('editing', $returnStorage.editing);
+  if ($eventTarget.tagName === 'I') {
+    const $targetId = $eventTarget.closest('LI')?.getAttribute('data-entry-id');
+    const $targetIdNumber = Number($targetId);
+    const $entryJSON = localStorage.getItem('data-storage');
+    const $returnStorage = JSON.parse($entryJSON);
+    for (let i = 0; i < $returnStorage.entries.length; i++) {
+      const $entryId = $returnStorage.entries[i].entryID;
+      if ($entryId === $targetIdNumber) {
+        data.editing = $returnStorage.entries[i];
+      }
     }
+    const $formElements = $form.elements;
+    if (!data.editing) throw new Error('Entry not found');
+    $formElements.title.value = data.editing.title;
+    $formElements['img-url'].value = data.editing['img-url'];
+    $img.setAttribute('src', data.editing['img-url']);
+    $formElements.notes.value = data.editing.notes;
+    $h1.innerHTML = 'Edit Entry';
+    data.view = 'entry-form';
+    viewSwap(data);
   }
-  // console.log('editing', $returnStorage.editing);
-  const $formElements = $form.elements;
-  if (!data.editing) throw new Error('Entry not found');
-  // console.log($formElements['img-url']);
-  // console.log('title', $returnStorage.editing.title);
-  // const titleEditing = data.editing?.title
-  $formElements.title.value = data.editing.title;
-  $formElements['img-url'].value = data.editing['img-url'];
-  $img.setAttribute('src', data.editing['img-url']);
-  $formElements.notes.value = data.editing.notes;
-  $h1.innerHTML = 'Edit Entry';
-  data.view = 'entry-form';
-  viewSwap(data);
 });
 document.addEventListener('DOMContentLoaded', () => {
   for (let i = 0; i < data.entries.length; i++) {

@@ -4,12 +4,7 @@ interface FormElements extends HTMLFormControlsCollection {
   'img-url': HTMLInputElement;
   notes: HTMLTextAreaElement;
 }
-// interface Entry {
-//   title: string;
-//   'img-url': string;
-//   notes: string;
-//   entryID: number;
-// }
+
 const $imgUrl = document.querySelector('.img-url') as HTMLFormElement;
 const $img = document.querySelector('img');
 const $form = document.querySelector('form');
@@ -75,10 +70,9 @@ $form.addEventListener('submit', (event: Event) => {
     if (!$liElements) throw new Error('$liElements query failed');
     for (let i = 0; i < $liElements.length; i++) {
       if (Number($liElements[i].dataset.entryId) === entry.entryID) {
-        $liElements[i].remove();
+        $liElements[i].replaceWith(renderEntry(entry));
       }
     }
-    renderEntry(entry);
     writeJSON();
     viewSwap(data);
     toggleNoEntries($noEntries);
@@ -91,17 +85,17 @@ function renderEntry(entry: Entry): HTMLLIElement {
   if (!$ul) throw new Error('$ul not found');
 
   const $li = $ul.appendChild(document.createElement('li'));
-  $li.setAttribute('class', 'row');
+  $li.setAttribute('class', 'row column-full');
   $li.setAttribute('data-entry-id', entry.entryID.toString());
 
   const $imgDiv = $li.appendChild(document.createElement('div'));
-  $imgDiv.setAttribute('class', 'img-div column-half no-padding-left');
+  $imgDiv.setAttribute('class', 'img-div column-half');
 
   const $img = $imgDiv.appendChild(document.createElement('img'));
   $img.setAttribute('src', entry['img-url']);
 
   const $textDiv = $li.appendChild(document.createElement('div'));
-  $textDiv.setAttribute('class', 'column-half');
+  $textDiv.setAttribute('class', 'column-half text-div');
 
   const $h3PencilDiv = $textDiv.appendChild(document.createElement('div'));
   $h3PencilDiv.setAttribute('class', 'row h3-icon');
@@ -134,7 +128,6 @@ function toggleNoEntries($noEntries: Element): void {
 
 if (!$entryForm || !$viewEntries)
   throw new Error('$entryForm or $viewEntries query failed.');
-
 function viewSwap(data: Data): void {
   if (data.view === $entryForm.dataset.view) {
     $viewEntries.setAttribute('class', 'hidden column-full');
@@ -164,38 +157,27 @@ $new.addEventListener('click', () => {
 
 $ul.addEventListener('click', (event: Event): void => {
   const $eventTarget = event.target as HTMLElement;
-  const $targetId = $eventTarget.closest('LI')?.getAttribute('data-entry-id');
-  const $targetIdNumber = Number($targetId);
-  const $entryJSON = localStorage.getItem('data-storage') as string;
-  const $returnStorage = JSON.parse($entryJSON);
-  // console.log($returnStorage);
-
-  // console.log('typeof', typeof $targetId);
-  // console.log('typeof $targNum', typeof $targetIdNumber, $targetIdNumber);
-
-  for (let i = 0; i < $returnStorage.entries.length; i++) {
-    const $entryId = $returnStorage.entries[i].entryID as number;
-    if ($entryId === $targetIdNumber) {
-      // console.log('yes', $returnStorage.entries[i]);
-      data.editing = $returnStorage.entries[i] as Entry;
-      // console.log(data.editing);
-      // console.log('data', data);
-      // console.log('editing', $returnStorage.editing);
+  if ($eventTarget.tagName === 'I') {
+    const $targetId = $eventTarget.closest('LI')?.getAttribute('data-entry-id');
+    const $targetIdNumber = Number($targetId);
+    const $entryJSON = localStorage.getItem('data-storage') as string;
+    const $returnStorage = JSON.parse($entryJSON);
+    for (let i = 0; i < $returnStorage.entries.length; i++) {
+      const $entryId = $returnStorage.entries[i].entryID as number;
+      if ($entryId === $targetIdNumber) {
+        data.editing = $returnStorage.entries[i] as Entry;
+      }
     }
+    const $formElements = $form.elements as FormElements;
+    if (!data.editing) throw new Error('Entry not found');
+    $formElements.title.value = data.editing.title;
+    $formElements['img-url'].value = data.editing['img-url'];
+    $img.setAttribute('src', data.editing['img-url']);
+    $formElements.notes.value = data.editing.notes;
+    $h1.innerHTML = 'Edit Entry';
+    data.view = 'entry-form';
+    viewSwap(data);
   }
-  // console.log('editing', $returnStorage.editing);
-  const $formElements = $form.elements as FormElements;
-  if (!data.editing) throw new Error('Entry not found');
-  // console.log($formElements['img-url']);
-  // console.log('title', $returnStorage.editing.title);
-  // const titleEditing = data.editing?.title
-  $formElements.title.value = data.editing.title;
-  $formElements['img-url'].value = data.editing['img-url'];
-  $img.setAttribute('src', data.editing['img-url']);
-  $formElements.notes.value = data.editing.notes;
-  $h1.innerHTML = 'Edit Entry';
-  data.view = 'entry-form';
-  viewSwap(data);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
