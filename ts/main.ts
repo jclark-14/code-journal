@@ -12,11 +12,25 @@ const $ul = document.querySelector('ul');
 const $noEntries = document.querySelector('.no-entries');
 const $entryForm = document.querySelector('#entry-form') as HTMLElement;
 const $viewEntries = document.querySelector('#entries') as HTMLElement;
+
 const $h1 = document.querySelector('h1');
-if (!$imgUrl || !$img || !$form || !$ul || !$noEntries || !$h1)
-  throw new Error(
-    '$imgUrl, $img, $entries, $ul, $h1, $entryForm, $viewEntries or $form query failed',
-  );
+const $delete = document.querySelector('.delete');
+const $dialog = document.querySelector('dialog');
+const $cancel = document.querySelector('.modal-cancel');
+const $confirm = document.querySelector('.modal-confirm');
+if (
+  !$imgUrl ||
+  !$img ||
+  !$form ||
+  !$ul ||
+  !$noEntries ||
+  !$h1 ||
+  !$delete ||
+  !$dialog ||
+  !$cancel ||
+  !$confirm
+)
+  throw new Error('The query has failed.');
 
 function writeJSON(): void {
   const dataJSON = JSON.stringify(data);
@@ -153,6 +167,11 @@ $new.addEventListener('click', () => {
   data.view = 'entry-form';
   writeJSON();
   viewSwap(data);
+  data.editing = null;
+  $form.reset();
+  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $h1.innerHTML = 'New Entry';
+  $delete?.setAttribute('class', 'delete hidden');
 });
 
 $ul.addEventListener('click', (event: Event): void => {
@@ -177,7 +196,35 @@ $ul.addEventListener('click', (event: Event): void => {
     $h1.innerHTML = 'Edit Entry';
     data.view = 'entry-form';
     viewSwap(data);
+    $delete?.setAttribute('class', 'delete');
   }
+});
+
+$delete.addEventListener('click', (): void => {
+  $dialog.showModal();
+});
+
+$cancel.addEventListener('click', (): void => {
+  $dialog.close();
+});
+
+$confirm.addEventListener('click', (): void => {
+  const $liElements = document.querySelectorAll('li');
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.editing?.entryID === data.entries[i].entryID) {
+      data.entries.splice(i, 1);
+    }
+  }
+  for (let i = 0; i < $liElements.length; i++) {
+    if (Number($liElements[i].dataset.entryId) === data.editing?.entryID) {
+      $liElements[i].remove();
+    }
+  }
+  toggleNoEntries($noEntries);
+  $dialog.close();
+  data.view = 'entries';
+  viewSwap(data);
+  writeJSON();
 });
 
 document.addEventListener('DOMContentLoaded', () => {
