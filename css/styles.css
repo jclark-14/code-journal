@@ -1,6 +1,5 @@
 header {
   height: 53px;
-  width: 100%;
   background-color: #562b81;
 }
 
@@ -10,6 +9,7 @@ h2 {
   font-size: 20px;
   font-weight: 400;
   margin-right: 25px;
+  padding-left: inherit;
 }
 
 body {
@@ -133,6 +133,17 @@ button {
   margin-bottom: 22px;
 }
 
+.h3-icon {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pencil {
+  color: #562b81;
+  position: relative;
+  bottom: 7px;
+}
+
 @media screen and (width >= 768px) {
   input {
     margin-top: 15px;
@@ -149,12 +160,17 @@ button {
     height: 380px;
   }
 
-  .no-padding-left {
-    padding-left: 0;
+  .text-div {
+    padding-left: 1.75rem;
   }
 
   li {
     margin-bottom: 25px;
+  }
+
+  h3,
+  .pencil {
+    margin-top: 5px;
   }
 }
 
