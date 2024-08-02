@@ -23,7 +23,7 @@ if (
   !$cancel ||
   !$confirm
 )
-  throw new Error('query failed');
+  throw new Error('The query has failed.');
 function writeJSON() {
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('data-storage', dataJSON);
@@ -35,6 +35,7 @@ $imgUrl.addEventListener('input', (event) => {
 $form.addEventListener('submit', (event) => {
   if (!data.editing) {
     event.preventDefault();
+    data.nextEntryId = 1;
     const $formElements = $form.elements;
     const entry = {
       title: $formElements.title.value,
@@ -42,8 +43,8 @@ $form.addEventListener('submit', (event) => {
       notes: $formElements.notes.value,
       entryID: data.nextEntryId,
     };
-    data.nextEntryId++;
     data.entries.push(entry);
+    data.nextEntryId++;
     $img.setAttribute('src', 'images/placeholder-image-square.jpg');
     $form.reset();
     data.view = 'entries';
@@ -198,9 +199,14 @@ $confirm.addEventListener('click', () => {
   writeJSON();
 });
 document.addEventListener('DOMContentLoaded', () => {
-  for (let i = 0; i < data.entries.length; i++) {
-    renderEntry(data.entries[i]);
+  if (data.entries) {
+    for (let i = 0; i < data.entries.length; i++) {
+      renderEntry(data.entries[i]);
+    }
+    toggleNoEntries($noEntries);
+    viewSwap(data);
+  } else {
+    toggleNoEntries($noEntries);
+    viewSwap(data);
   }
-  toggleNoEntries($noEntries);
-  viewSwap(data);
 });

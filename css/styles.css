@@ -218,6 +218,11 @@ a.modal-confirm:focus {
     margin-bottom: 30px;
   }
 
+  dialog {
+    position: relative;
+    bottom: 10rem;
+  }
+
   #notes {
     margin-bottom: 30px;
     padding: 8px 10px;
